@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  ["gv.vim"] = {
+    loaded = true,
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/gv.vim",
+    url = "https://github.com/junegunn/gv.vim"
+  },
   harpoon = {
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/harpoon",
@@ -148,6 +153,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-rhubarb"] = {
+    loaded = true,
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/vim-rhubarb",
+    url = "https://github.com/tpope/vim-rhubarb"
   }
 }
 

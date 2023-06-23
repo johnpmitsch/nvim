@@ -31,8 +31,8 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '<space>x', vim.diagnostic.open_float)
 
-vim.api.nvim_set_keymap('n', '<C-g>', ':q<CR>', {silent = true})
-vim.keymap.set("n", '<C-q>', '<C-g>')
+vim.api.nvim_set_keymap('n', '<C-f>', ':q<CR>', {silent = true})
+vim.keymap.set("n", '<C-q>', '<C-f>')
 
 -- move window left and right
 vim.api.nvim_set_keymap('n', '<leader>h', ':wincmd h<CR>', {silent = true})
