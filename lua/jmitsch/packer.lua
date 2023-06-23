@@ -36,7 +36,12 @@ return require('packer').startup(function(use)
       { 'junegunn/gv.vim' },
       { 'tpope/vim-rhubarb' },
       { 'github/copilot.vim' },
+      use {
+        "tversteeg/registers.nvim",
+        config = function()
+          require("registers").setup()
+        end,
+      }
     }
   }
-
 end)
