@@ -89,6 +89,11 @@ _G.packer_plugins = {
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/copilot.vim",
     url = "https://github.com/github/copilot.vim"
   },
+  ["dirbuf.nvim"] = {
+    loaded = true,
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/dirbuf.nvim",
+    url = "https://github.com/elihunter173/dirbuf.nvim"
+  },
   ["gv.vim"] = {
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/gv.vim",

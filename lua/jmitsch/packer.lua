@@ -45,4 +45,5 @@ return require('packer').startup(function(use)
   use "github/copilot.vim"
   use "ggandor/lightspeed.nvim"
   use "navarasu/onedark.nvim"
+  use "elihunter173/dirbuf.nvim"
 end)
