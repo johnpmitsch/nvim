@@ -11,7 +11,6 @@ return require('packer').startup(function(use)
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
   use({ 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } })
-  use "joshdick/onedark.vim"
   use 'ThePrimeagen/harpoon'
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
@@ -33,9 +32,6 @@ return require('packer').startup(function(use)
       { 'hrsh7th/nvim-cmp' }, -- Required
       { 'hrsh7th/cmp-nvim-lsp' }, -- Required
       { 'L3MON4D3/LuaSnip' }, -- Required
-      { 'junegunn/gv.vim' },
-      { 'tpope/vim-rhubarb' },
-      { 'github/copilot.vim' },
       use {
         "tversteeg/registers.nvim",
         config = function()
@@ -44,4 +40,9 @@ return require('packer').startup(function(use)
       }
     }
   }
+  use "junegunn/gv.vim"
+  use "tpope/vim-rhubarb"
+  use "github/copilot.vim"
+  use "ggandor/lightspeed.nvim"
+  use "navarasu/onedark.nvim"
 end)
