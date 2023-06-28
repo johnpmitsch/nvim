@@ -104,10 +104,10 @@ _G.packer_plugins = {
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/ThePrimeagen/harpoon"
   },
-  ["lightspeed.nvim"] = {
+  ["leap.nvim"] = {
     loaded = true,
-    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/lightspeed.nvim",
-    url = "https://github.com/ggandor/lightspeed.nvim"
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/leap.nvim",
+    url = "https://github.com/ggandor/leap.nvim"
   },
   ["lsp-zero.nvim"] = {
     loaded = true,
@@ -123,6 +123,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["null-ls.nvim"] = {
+    loaded = true,
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
   },
   ["nvim-cmp"] = {
     loaded = true,

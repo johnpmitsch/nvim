@@ -3,38 +3,38 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-	'tsserver',
-	'eslint',
-	'rust_analyzer',
+  'tsserver',
+  'eslint',
+  'rust_analyzer',
 })
 
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
-	['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-	['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-	['<Tab>'] = cmp.mapping.confirm({ select = true }),
-	['<C-Space>'] = cmp.mapping.complete()
+  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+  ['<C-Space>'] = cmp.mapping.complete()
 })
 
 lsp.setup_nvim_cmp({
-	mapping = cmp_mappings
+  mapping = cmp_mappings
 })
 
 lsp.set_preferences({
-    suggest_lsp_servers = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
+  suggest_lsp_servers = false,
+  sign_icons = {
+    error = 'E',
+    warn = 'W',
+    hint = 'H',
+    info = 'I'
+  }
 })
 
 lsp.on_attach(function(client, bufnr)
-  local opts = {buffer = bufnr, remap = false}
+  local opts = { buffer = bufnr, remap = false }
 
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
@@ -48,9 +48,31 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
-lsp.setup()
-
-vim.diagnostic.config({
-    virtual_text = true
+lsp.format_on_save({
+  format_opts = {
+    async = false,
+    timeout_ms = 10000,
+  },
+  servers = {
+    ['null-ls'] = { 'javascript', 'typescript', 'lua' },
+  }
 })
 
+lsp.setup()
+
+local null_ls = require('null-ls')
+
+null_ls.setup({
+  sources = {
+    -- Replace these with the tools you have installed
+    -- make sure the source name is supported by null-ls
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.formatting.prettierd,
+    null_ls.builtins.code_actions.eslint_d,
+  }
+})
+
+vim.diagnostic.config({
+  virtual_text = true
+})

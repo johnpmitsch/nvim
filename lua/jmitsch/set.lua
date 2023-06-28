@@ -27,3 +27,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "100"
+
+-- Disable adding newline at end of file for all filetypes
+vim.opt.endofline = false
+vim.opt.fixendofline = false

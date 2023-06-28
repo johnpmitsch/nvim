@@ -43,7 +43,8 @@ return require('packer').startup(function(use)
   use "junegunn/gv.vim"
   use "tpope/vim-rhubarb"
   use "github/copilot.vim"
-  use "ggandor/lightspeed.nvim"
   use "navarasu/onedark.nvim"
   use "elihunter173/dirbuf.nvim"
+  use "ggandor/leap.nvim"
+  use 'jose-elias-alvarez/null-ls.nvim'
 end)
