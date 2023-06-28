@@ -42,9 +42,16 @@ return require('packer').startup(function(use)
   }
   use "junegunn/gv.vim"
   use "tpope/vim-rhubarb"
-  use "github/copilot.vim"
+  use "zbirenbaum/copilot.lua"
   use "navarasu/onedark.nvim"
   use "elihunter173/dirbuf.nvim"
   use "ggandor/leap.nvim"
   use 'jose-elias-alvarez/null-ls.nvim'
+  use {
+    "zbirenbaum/copilot-cmp",
+    after = { "copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  }
 end)

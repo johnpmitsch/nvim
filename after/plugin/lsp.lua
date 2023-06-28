@@ -13,14 +13,38 @@ require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-  ['<C-Space>'] = cmp.mapping.complete()
 })
 
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
+local has_words_before = function()
+  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+end
+
+cmp.setup({
+  formatting = {
+    format = function(_entry, vim_item)
+      vim_item.abbr = string.sub(vim_item.abbr, 1, 20)
+      return vim_item
+    end
+  },
+  sources = {
+    { name = 'copilot' },
+    { name = 'nvim_lsp' },
+  },
+  mapping = {
+    ["<C-n>"] = vim.schedule_wrap(function(fallback)
+      if cmp.visible() and has_words_before() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      else
+        fallback()
+      end
+    end),
+    ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-j>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-Space>'] = cmp.mapping.complete()
+  },
 })
 
 lsp.set_preferences({
