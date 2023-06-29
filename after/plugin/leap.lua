@@ -3,7 +3,7 @@ local leap = require('leap')
 leap.add_default_mappings()
 
 local function get_line_starts(winid, skip_range)
-  local wininfo =  vim.fn.getwininfo(winid)[1]
+  local wininfo = vim.fn.getwininfo(winid)[1]
   local cur_line = vim.fn.line('.')
   -- Skip lines close to the cursor.
   local skip_range = skip_range or 2
@@ -30,7 +30,7 @@ local function get_line_starts(winid, skip_range)
     local t_screen_row = vim.fn.screenpos(winid, t.pos[1], t.pos[2])['row']
     return math.abs(cur_screen_row - t_screen_row)
   end
-  table.sort(targets, function (t1, t2)
+  table.sort(targets, function(t1, t2)
     return screen_rows_from_cur(t1) < screen_rows_from_cur(t2)
   end)
 
@@ -49,4 +49,4 @@ function leap_linewise(skip_range)
   }
 end
 
-vim.keymap.set("n", "<leader>l", leap_linewise)
+vim.keymap.set("n", "z", leap_linewise)

@@ -54,4 +54,10 @@ return require('packer').startup(function(use)
       require("copilot_cmp").setup()
     end
   }
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+  use 'm4xshen/autoclose.nvim'
+  use 'rhysd/clever-f.vim'
 end)
