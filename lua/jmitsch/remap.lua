@@ -38,3 +38,13 @@ vim.keymap.set("n", '<C-q>', '<C-f>')
 vim.api.nvim_set_keymap('n', '<C-h>', ':wincmd h<CR>', { silent = true })
 vim.api.nvim_set_keymap('n', '<C-l>', ':wincmd l<CR>', { silent = true })
 
+local function disable_keys()
+  local keys_to_disable = { 'h', 'j', 'k', 'l' }
+  for _, key in ipairs(keys_to_disable) do
+    vim.api.nvim_set_keymap('n', key, '<nop>', {noremap = true, silent = true})
+    vim.api.nvim_set_keymap('v', key, '<nop>', {noremap = true, silent = true})
+  end
+end
+
+--disable_keys()
+

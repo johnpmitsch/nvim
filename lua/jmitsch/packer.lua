@@ -44,8 +44,17 @@ return require('packer').startup(function(use)
   use "tpope/vim-rhubarb"
   use "zbirenbaum/copilot.lua"
   use "navarasu/onedark.nvim"
-  use "elihunter173/dirbuf.nvim"
-  use "ggandor/leap.nvim"
+  use {
+    "ggandor/leap.nvim",
+    requires = {
+      use {
+        'ggandor/flit.nvim',
+        conig = function()
+          require("flit").setup()
+        end,
+      }
+    }
+  }
   use 'jose-elias-alvarez/null-ls.nvim'
   use {
     "zbirenbaum/copilot-cmp",
@@ -58,6 +67,8 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
-  use 'm4xshen/autoclose.nvim'
-  use 'rhysd/clever-f.vim'
+  use {
+    'stevearc/oil.nvim',
+    config = function() require('oil').setup() end
+  }
 end)

@@ -1,12 +1,15 @@
 local leap = require('leap')
 
+-- f/F/t/T enhancement
+require("flit").setup()
+
 leap.add_default_mappings()
 
 local function get_line_starts(winid, skip_range)
   local wininfo = vim.fn.getwininfo(winid)[1]
   local cur_line = vim.fn.line('.')
   -- Skip lines close to the cursor.
-  local skip_range = skip_range or 2
+  local skip_range = skip_range or 0
 
   -- Get targets.
   local targets = {}
@@ -44,6 +47,11 @@ end
 function leap_linewise(skip_range)
   local winid = vim.api.nvim_get_current_win()
   require('leap').leap {
+    opts = { safe_labels = {
+      "/", "?",
+      "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+      "a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "o", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    } },
     target_windows = { winid },
     targets = get_line_starts(winid, skip_range),
   }
