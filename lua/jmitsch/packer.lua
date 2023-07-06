@@ -89,4 +89,9 @@ return require('packer').startup(function(use)
       })
     end
   }
+  use {
+    'nvim-pack/nvim-spectre',
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
+  use { "beauwilliams/focus.nvim", config = function() require("focus").setup() end }
 end)
