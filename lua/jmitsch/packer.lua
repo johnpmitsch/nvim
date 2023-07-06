@@ -13,7 +13,6 @@ return require('packer').startup(function(use)
   use({ 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } })
   use 'ThePrimeagen/harpoon'
   use 'mbbill/undotree'
-  use 'tpope/vim-fugitive'
   use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
@@ -67,6 +66,7 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
+  use { 'NeogitOrg/neogit', requires = 'nvim-lua/plenary.nvim' }
   use {
     'stevearc/oil.nvim',
     config = function()
