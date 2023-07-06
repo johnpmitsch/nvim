@@ -31,3 +31,5 @@ vim.opt.colorcolumn = "100"
 -- Disable adding newline at end of file for all filetypes
 vim.opt.endofline = false
 vim.opt.fixendofline = false
+
+vim.o.cursorline = false
