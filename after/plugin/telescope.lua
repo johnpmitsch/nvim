@@ -24,6 +24,8 @@ vim.keymap.set("n", "<leader><leader>", telescope.extensions.find_pickers.find_p
 vim.keymap.set('n', '<leader>pf', builtin.git_files, {})
 vim.keymap.set('n', '<leader>pq', builtin.quickfix, {})
 vim.keymap.set('n', '<leader>cq', '<cmd>cex []<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>po', builtin.oldfiles, {})
+vim.keymap.set('n', '<leader>pl', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>ps', function()
   builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)

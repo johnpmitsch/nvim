@@ -69,7 +69,7 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
-  use { 'NeogitOrg/neogit', requires = 'nvim-lua/plenary.nvim' }
+  use 'tpope/vim-fugitive'
   use {
     'stevearc/oil.nvim',
     config = function()
