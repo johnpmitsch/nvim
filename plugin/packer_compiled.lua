@@ -180,7 +180,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["oil.nvim"] = {
-    config = { "\27LJ\2\n‹\2\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\0\1\0\r\n<C-r>\20actions.preview\6_\21actions.open_cwd\n<C-t>\23actions.select_tab\n<C-c>\18actions.close\6`\15actions.cd\n<C-s>\26actions.select_vsplit\6~\16actions.tcd\t<CR>\19actions.select\ag.\26actions.toggle_hidden\ag?\22actions.show_help\n<C-l>\20actions.refresh\n<C-h>\25actions.select_split\6-\19actions.parent\nsetup\boil\frequire\0" },
+    config = { "\27LJ\2\n‹\2\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\0\1\0\r\n<C-c>\18actions.close\n<C-t>\23actions.select_tab\n<C-r>\20actions.preview\6`\15actions.cd\n<C-l>\20actions.refresh\6~\16actions.tcd\n<C-h>\25actions.select_split\n<C-s>\26actions.select_vsplit\ag.\26actions.toggle_hidden\t<CR>\19actions.select\ag?\22actions.show_help\6-\19actions.parent\6_\21actions.open_cwd\nsetup\boil\frequire\0" },
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/oil.nvim",
     url = "https://github.com/stevearc/oil.nvim"
@@ -206,6 +206,11 @@ _G.packer_plugins = {
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/registers.nvim",
     url = "https://github.com/tversteeg/registers.nvim"
   },
+  ["telescope-find-pickers.nvim"] = {
+    loaded = true,
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/telescope-find-pickers.nvim",
+    url = "https://github.com/keyvchan/telescope-find-pickers.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -228,14 +233,14 @@ time([[Defining packer_plugins]], false)
 time([[Config for focus.nvim]], true)
 try_loadstring("\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0", "config", "focus.nvim")
 time([[Config for focus.nvim]], false)
+-- Config for: oil.nvim
+time([[Config for oil.nvim]], true)
+try_loadstring("\27LJ\2\n‹\2\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\0\1\0\r\n<C-c>\18actions.close\n<C-t>\23actions.select_tab\n<C-r>\20actions.preview\6`\15actions.cd\n<C-l>\20actions.refresh\6~\16actions.tcd\n<C-h>\25actions.select_split\n<C-s>\26actions.select_vsplit\ag.\26actions.toggle_hidden\t<CR>\19actions.select\ag?\22actions.show_help\6-\19actions.parent\6_\21actions.open_cwd\nsetup\boil\frequire\0", "config", "oil.nvim")
+time([[Config for oil.nvim]], false)
 -- Config for: registers.nvim
 time([[Config for registers.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14registers\frequire\0", "config", "registers.nvim")
 time([[Config for registers.nvim]], false)
--- Config for: oil.nvim
-time([[Config for oil.nvim]], true)
-try_loadstring("\27LJ\2\n‹\2\0\0\4\0\6\0\t6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\2B\0\2\1K\0\1\0\fkeymaps\1\0\0\1\0\r\n<C-r>\20actions.preview\6_\21actions.open_cwd\n<C-t>\23actions.select_tab\n<C-c>\18actions.close\6`\15actions.cd\n<C-s>\26actions.select_vsplit\6~\16actions.tcd\t<CR>\19actions.select\ag.\26actions.toggle_hidden\ag?\22actions.show_help\n<C-l>\20actions.refresh\n<C-h>\25actions.select_split\6-\19actions.parent\nsetup\boil\frequire\0", "config", "oil.nvim")
-time([[Config for oil.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd copilot.lua ]]
