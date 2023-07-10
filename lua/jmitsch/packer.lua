@@ -46,17 +46,7 @@ return require('packer').startup(function(use)
   use "tpope/vim-rhubarb"
   use "zbirenbaum/copilot.lua"
   use "navarasu/onedark.nvim"
-  use {
-    "ggandor/leap.nvim",
-    requires = {
-      use {
-        'ggandor/flit.nvim',
-        conig = function()
-          require("flit").setup()
-        end,
-      }
-    }
-  }
+  use 'folke/flash.nvim'
   use 'jose-elias-alvarez/null-ls.nvim'
   use {
     "zbirenbaum/copilot-cmp",

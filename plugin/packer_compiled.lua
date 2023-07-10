@@ -97,10 +97,10 @@ _G.packer_plugins = {
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/copilot.lua",
     url = "https://github.com/zbirenbaum/copilot.lua"
   },
-  ["flit.nvim"] = {
+  ["flash.nvim"] = {
     loaded = true,
-    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/flit.nvim",
-    url = "https://github.com/ggandor/flit.nvim"
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/flash.nvim",
+    url = "https://github.com/folke/flash.nvim"
   },
   ["focus.nvim"] = {
     config = { "\27LJ\2\n3\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\nfocus\frequire\0" },
@@ -117,11 +117,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/ThePrimeagen/harpoon"
-  },
-  ["leap.nvim"] = {
-    loaded = true,
-    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/leap.nvim",
-    url = "https://github.com/ggandor/leap.nvim"
   },
   ["lsp-zero.nvim"] = {
     loaded = true,
