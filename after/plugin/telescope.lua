@@ -5,6 +5,11 @@ local builtin = require('telescope.builtin')
 
 telescope.load_extension('find_pickers')
 telescope.setup {
+  pickers = {
+    find_files = {
+      find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
+    }
+  },
   defaults = {
     mappings = {
       i = {
