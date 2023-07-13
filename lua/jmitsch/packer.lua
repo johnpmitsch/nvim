@@ -60,28 +60,7 @@ return require('packer').startup(function(use)
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
   use 'tpope/vim-fugitive'
-  use {
-    'stevearc/oil.nvim',
-    config = function()
-      require('oil').setup({
-        keymaps = {
-          ["g?"] = "actions.show_help",
-          ["<CR>"] = "actions.select",
-          ["<C-s>"] = "actions.select_vsplit",
-          ["<C-h>"] = "actions.select_split",
-          ["<C-t>"] = "actions.select_tab",
-          ["<C-r>"] = "actions.preview",
-          ["<C-c>"] = "actions.close",
-          ["<C-l>"] = "actions.refresh",
-          ["-"] = "actions.parent",
-          ["_"] = "actions.open_cwd",
-          ["`"] = "actions.cd",
-          ["~"] = "actions.tcd",
-          ["g."] = "actions.toggle_hidden",
-        }
-      })
-    end
-  }
+  use { 'stevearc/oil.nvim' }
   use {
     'nvim-pack/nvim-spectre',
     requires = { 'nvim-lua/plenary.nvim' }
