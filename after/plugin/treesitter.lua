@@ -1,7 +1,7 @@
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "lua", "vimdoc", "javascript", "typescript", "go", "rust" },
+  ensure_installed = { "lua", "vimdoc", "javascript", "typescript", "go", "rust", "markdown" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -21,3 +21,7 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+-- Highlighting for mdx files
+vim.cmd([[ autocmd BufRead,BufNewFile *.mdx set filetype=markdown ]])
+
