@@ -13,47 +13,23 @@ return require('packer').startup(function(use)
       { "keyvchan/telescope-find-pickers.nvim" }
     }
   }
-  use({ 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } })
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    { run = ':TSUpdate' }
+  }
   use 'ThePrimeagen/harpoon'
   use 'mbbill/undotree'
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v2.x',
-    requires = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' }, -- Required
-      { -- Optional
-        'williamboman/mason.nvim',
-        run = function()
-          pcall(vim.cmd, 'MasonUpdate')
-        end,
-      },
-      { 'williamboman/mason-lspconfig.nvim' }, -- Optional
-
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' }, -- Required
-      { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-      { 'L3MON4D3/LuaSnip' }, -- Required
-      use {
-        "tversteeg/registers.nvim",
-        config = function()
-          require("registers").setup()
-        end,
-      }
-    }
-  }
   use "junegunn/gv.vim"
   use "tpope/vim-rhubarb"
   use "zbirenbaum/copilot.lua"
   use "navarasu/onedark.nvim"
   use 'folke/flash.nvim'
-  use 'jose-elias-alvarez/null-ls.nvim'
+  use {'neoclide/coc.nvim', branch = 'release'}
   use {
-    "zbirenbaum/copilot-cmp",
-    after = { "copilot.lua" },
+    "tversteeg/registers.nvim",
     config = function()
-      require("copilot_cmp").setup()
-    end
+      require("registers").setup()
+    end,
   }
   use {
     'nvim-lualine/lualine.nvim',
