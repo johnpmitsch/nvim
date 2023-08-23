@@ -17,14 +17,13 @@ return require('packer').startup(function(use)
     'nvim-treesitter/nvim-treesitter',
     { run = ':TSUpdate' }
   }
-  use 'ThePrimeagen/harpoon'
   use 'mbbill/undotree'
   use "junegunn/gv.vim"
   use "tpope/vim-rhubarb"
   use "zbirenbaum/copilot.lua"
   use "navarasu/onedark.nvim"
   use 'folke/flash.nvim'
-  use {'neoclide/coc.nvim', branch = 'release'}
+  use { 'neoclide/coc.nvim', branch = 'release' }
   use {
     "tversteeg/registers.nvim",
     config = function()
