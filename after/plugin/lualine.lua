@@ -15,9 +15,9 @@ local colors = {
 
 local bubbles_theme = {
   normal = {
-    a = { fg = colors.black, bg = colors.violet },
-    b = { fg = colors.white, bg = colors.grey },
-    c = { fg = colors.black, bg = colors.black },
+    a = { fg = colors.black, bg = colors.blue },
+    b = { fg = colors.black, bg = colors.blue },
+    c = { fg = colors.white, bg = colors.grey },
   },
 
   insert = { a = { fg = colors.black, bg = colors.blue } },
@@ -25,9 +25,9 @@ local bubbles_theme = {
   replace = { a = { fg = colors.black, bg = colors.red } },
 
   inactive = {
-    a = { fg = colors.white, bg = colors.black },
-    b = { fg = colors.white, bg = colors.black },
-    c = { fg = colors.black, bg = colors.black },
+    a = { fg = colors.black, bg = colors.white },
+    b = { fg = colors.black, bg = colors.white },
+    c = { fg = colors.white, bg = colors.grey },
   },
 }
 
@@ -54,7 +54,11 @@ require('lualine').setup {
   },
   inactive_sections = {
     lualine_a = { 'filename' },
-    lualine_b = {},
+    lualine_b = { {
+      'filename',
+      file_status = true, -- displays file status (readonly status, modified status)
+      path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
+    } },
     lualine_c = {},
     lualine_x = {},
     lualine_y = {},
