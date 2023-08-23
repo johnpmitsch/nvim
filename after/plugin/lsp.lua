@@ -45,8 +45,7 @@ keyset("n", "gt", "<Plug>(coc-type-definition)", { silent = true })
 keyset("n", "gi", "<Plug>(coc-implementation)", { silent = true })
 keyset("n", "gr", "<Plug>(coc-references)", { silent = true })
 vim.api.nvim_set_keymap('n', 'gv', [[:call CocAction('jumpDefinition', 'vsplit')<CR>]], { noremap = true, silent = true })
-
-keyset("i", "<c-e>", [[:call CocAction('diagnosticInfo')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<c-e>", [[:call CocAction('diagnosticInfo')<CR>]], { noremap = true, silent = true })
 
 
 -- Use K to show documentation in preview window
