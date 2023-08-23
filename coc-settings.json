@@ -35,11 +35,13 @@
   "coc.preferences.jumpCommand": "drop",
   "coc.preferences.formatOnSave": true,
   "diagnostic.checkCurrentLine": false,
-  "diagnostic.messageTarget": "echo",
+  "diagnostic.messageTarget": "float",
+  "diagnostic.messageDelay": 600,
   "diagnostic.separateRelatedInformationAsDiagnostics": false,
   "diagnostic.virtualText": false,
   "diagnostic.virtualTextCurrentLineOnly": false,
   "prettier.disableLanguages": ["yaml"],
   "Lua.diagnostics.globals": ["vim"],
-  "Lua.window.statusBar": false
+  "Lua.window.statusBar": false,
+  "snippets.userSnippetsDirectory": "~/.config/nvim/snippets"
 }
