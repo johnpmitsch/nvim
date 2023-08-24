@@ -42,6 +42,9 @@
   "diagnostic.virtualText": true,
   "diagnostic.virtualTextCurrentLineOnly": true,
   "prettier.disableLanguages": ["yaml"],
+  "signature.hideOnTextChange": true,
+  "signature.preferShownAbove": false,
+  "signature.target": "echo",
   "Lua.diagnostics.globals": ["vim"],
   "Lua.window.statusBar": false,
   "snippets.userSnippetsDirectory": "~/.config/nvim/snippets"

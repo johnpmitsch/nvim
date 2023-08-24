@@ -31,8 +31,7 @@ vim.keymap.set("n", "<leader>o", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set('n', '<space>x', vim.diagnostic.open_float)
 
-vim.api.nvim_set_keymap('n', '<C-f>', ':q<CR>', { silent = true })
-vim.keymap.set("n", '<C-q>', '<C-f>')
+vim.api.nvim_set_keymap('n', '<C-q>', ':q<CR>', { silent = true })
 
 -- move window left and right
 vim.api.nvim_set_keymap('n', '<C-h>', ':wincmd h<CR>', { silent = true })
@@ -41,10 +40,9 @@ vim.api.nvim_set_keymap('n', '<C-l>', ':wincmd l<CR>', { silent = true })
 local function disable_keys()
   local keys_to_disable = { 'h', 'j', 'k', 'l' }
   for _, key in ipairs(keys_to_disable) do
-    vim.api.nvim_set_keymap('n', key, '<nop>', {noremap = true, silent = true})
-    vim.api.nvim_set_keymap('v', key, '<nop>', {noremap = true, silent = true})
+    vim.api.nvim_set_keymap('n', key, '<nop>', { noremap = true, silent = true })
+    vim.api.nvim_set_keymap('v', key, '<nop>', { noremap = true, silent = true })
   end
 end
 
 --disable_keys()
-

@@ -4,29 +4,32 @@
 
 -- stylua: ignore
 local colors = {
-  blue   = '#80a0ff',
-  cyan   = '#79dac8',
-  black  = '#080808',
-  white  = '#c6c6c6',
-  red    = '#ff5189',
-  violet = '#d183e8',
-  grey   = '#303030',
+  blue     = '#62C6F2',
+  cyan     = '#79dac8',
+  black    = '#080808',
+  white    = '#c6c6c6',
+  red      = '#ff5189',
+  violet   = '#d183e8',
+  grey     = '#303030',
+  green    = '#258a40',
+  darkBlue = '#192a3d',
+  orange   = '#8a531c'
 }
 
 local bubbles_theme = {
   normal = {
-    a = { fg = colors.black, bg = colors.blue },
-    b = { fg = colors.black, bg = colors.blue },
-    c = { fg = colors.white, bg = colors.grey },
+    a = { fg = colors.darkBlue, bg = colors.white },
+    b = { fg = colors.blue, bg = colors.black },
+    c = { fg = colors.black, bg = colors.grey },
   },
 
-  insert = { a = { fg = colors.black, bg = colors.blue } },
-  visual = { a = { fg = colors.black, bg = colors.cyan } },
-  replace = { a = { fg = colors.black, bg = colors.red } },
+  insert = { a = { fg = colors.orange, bg = colors.white } },
+  visual = { a = { fg = colors.green, bg = colors.white } },
+  replace = { a = { fg = colors.red, bg = colors.white } },
 
   inactive = {
-    a = { fg = colors.black, bg = colors.white },
-    b = { fg = colors.black, bg = colors.white },
+    a = { fg = colors.white, bg = colors.grey },
+    b = { fg = colors.white, bg = colors.grey },
     c = { fg = colors.white, bg = colors.grey },
   },
 }

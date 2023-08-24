@@ -26,6 +26,7 @@ local opts = { silent = true, noremap = true, expr = true, replace_keycodes = fa
 keyset("i", "<c-j>", [[coc#pum#visible() ? coc#pum#next(1) : "\<c-j>"]], opts)
 keyset("i", "<c-k>", [[coc#pum#visible() ? coc#pum#prev(1) : "\<c-k>"]], opts)
 
+
 -- Make <CR> to accept selected completion item or notify coc.nvim to format
 -- <C-g>u breaks current undo, please make your own choice
 keyset("i", "<tab>", [[coc#pum#visible() ? coc#pum#confirm() : "<tab>"]], opts)
@@ -45,8 +46,6 @@ keyset("n", "gt", "<Plug>(coc-type-definition)", { silent = true })
 keyset("n", "gi", "<Plug>(coc-implementation)", { silent = true })
 keyset("n", "gr", "<Plug>(coc-references)", { silent = true })
 vim.api.nvim_set_keymap('n', 'gv', [[:call CocAction('jumpDefinition', 'vsplit')<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<c-e>", [[:call CocAction('diagnosticInfo')<CR>]], { noremap = true, silent = true })
-
 
 -- Use K to show documentation in preview window
 function _G.show_docs()
