@@ -33,6 +33,11 @@ local bubbles_theme = {
     c = { fg = colors.white, bg = colors.grey },
   },
 }
+local save_status = function()
+  local is_modified = vim.bo.modified
+  return is_modified and "🟡" or "🟢"
+end
+
 
 require('lualine').setup {
   options = {
@@ -50,7 +55,7 @@ require('lualine').setup {
       'branch' },
     lualine_c = { 'fileformat' },
     lualine_x = { 'diff' },
-    lualine_y = { 'filetype', 'progress' },
+    lualine_y = { 'filetype', 'progress', save_status },
     lualine_z = {
       { 'location', left_padding = 2 },
     },
@@ -65,7 +70,7 @@ require('lualine').setup {
     lualine_c = {},
     lualine_x = {},
     lualine_y = {},
-    lualine_z = { 'location' },
+    lualine_z = { save_status, 'location' },
   },
   tabline = {},
   extensions = {},

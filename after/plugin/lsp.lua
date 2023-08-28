@@ -60,6 +60,7 @@ function _G.show_docs()
 end
 
 keyset("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
+vim.api.nvim_set_keymap('n', '<C-e>', [[:call CocAction('diagnosticInfo')<CR>]], { noremap = true, silent = true })
 
 
 -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
