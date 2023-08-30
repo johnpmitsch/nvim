@@ -21,7 +21,7 @@ return require('packer').startup(function(use)
   use "junegunn/gv.vim"
   use "tpope/vim-rhubarb"
   use "zbirenbaum/copilot.lua"
-  use "navarasu/onedark.nvim"
+  use { "folke/tokyonight.nvim" }
   use 'folke/flash.nvim'
   use { 'neoclide/coc.nvim', branch = 'release' }
   use {
