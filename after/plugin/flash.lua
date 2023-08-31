@@ -13,13 +13,20 @@ local forwardSearch = function()
     search = { forward = true, wrap = false, multi_window = true },
   })
 end
+
 local backwardSearch = function()
   flash.jump({
-    search = { forward = false, wrap = false, multi_window = true, mode = function(str)
-      return "\\<" .. str
-    end, },
+    search = {
+      forward = false,
+      wrap = false,
+      multi_window = true,
+      mode = function(str)
+        return "\\<" .. str
+      end,
+    },
   })
 end
+
 local lineJump = function()
   flash.jump({
     search = { mode = "search", max_length = 0 },
@@ -27,9 +34,11 @@ local lineJump = function()
     pattern = "^"
   })
 end
+
 local treesitter = function()
   flash.treesitter()
 end
+
 vim.keymap.set("n", "s", forwardSearch)
 vim.keymap.set("x", "s", forwardSearch)
 vim.keymap.set("o", "s", forwardSearch)
