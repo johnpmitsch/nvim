@@ -23,7 +23,6 @@ return require('packer').startup(function(use)
   use "zbirenbaum/copilot.lua"
   use { "folke/tokyonight.nvim" }
   use 'folke/flash.nvim'
-  use { 'neoclide/coc.nvim', branch = 'release' }
   use {
     "tversteeg/registers.nvim",
     config = function()
@@ -41,4 +40,20 @@ return require('packer').startup(function(use)
     requires = { 'nvim-lua/plenary.nvim' }
   }
   use { "beauwilliams/focus.nvim" }
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+  }
+  use {
+    "hrsh7th/nvim-cmp",
+    'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'L3MON4D3/LuaSnip'
+  }
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = 'nvim-lua/plenary.nvim'
+  }
+  use "numToStr/FTerm.nvim"
 end)
