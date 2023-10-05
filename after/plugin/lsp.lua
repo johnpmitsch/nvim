@@ -39,6 +39,10 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 end
 
+vim.api.nvim_exec([[
+  command! NoAutoFormat lua vim.lsp.buf_set_option('format_on_save', false)
+]], false)
+
 local lsp_defaults = {
   on_attach = on_attach,
 }
@@ -55,7 +59,6 @@ require("mason-lspconfig").setup({
   ensure_installed = {
     'clangd',
     'cssls',
-    'eslint',
     'gopls',
     'html',
     'jsonls',
@@ -64,6 +67,10 @@ require("mason-lspconfig").setup({
     'solang',
     'svelte',
     'tsserver',
+    'solargraph',
+    'sorbet',
+    'rubocop',
+    'eslint'
   },
   handlers = {
     function(server)
@@ -73,21 +80,29 @@ require("mason-lspconfig").setup({
 })
 
 local lSsources = {
-  null_ls.builtins.formatting.prettier.with({
+  null_ls.builtins.code_actions.eslint_d.with({
     filetypes = {
       "javascript",
       "typescript",
+      "javascriptreact",
+      "typescriptreact",
+    },
+  }),
+  null_ls.builtins.formatting.prettierd.with({
+    filetypes = {
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
       "css",
       "scss",
       "html",
-      "json",
       "yaml",
       "markdown",
       "graphql",
       "md",
       "txt",
     },
-    only_local = "node_modules/.bin",
   })
 }
 

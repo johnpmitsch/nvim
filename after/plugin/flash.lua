@@ -20,9 +20,6 @@ local backwardSearch = function()
       forward = false,
       wrap = false,
       multi_window = true,
-      mode = function(str)
-        return "\\<" .. str
-      end,
     },
   })
 end
