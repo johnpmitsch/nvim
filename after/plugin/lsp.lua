@@ -4,6 +4,25 @@ local lspconfig = require('lspconfig')
 local null_ls = require("null-ls")
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
+local function filter(arr, fn)
+  if type(arr) ~= "table" then
+    return arr
+  end
+
+  local filtered = {}
+  for k, v in pairs(arr) do
+    if fn(v, k, arr) then
+      table.insert(filtered, v)
+    end
+  end
+
+  return filtered
+end
+
+local function filterReactDTS(value)
+  return string.match(value.targetUri, '%.d.ts') == nil
+end
+
 
 -- See :help cmp-config
 cmp.setup({
@@ -26,46 +45,17 @@ cmp.setup({
   }),
 })
 
-local function filter(arr, fn)
-  if type(arr) ~= "table" then
-    return arr
-  end
-
-  local filtered = {}
-  for k, v in pairs(arr) do
-    if fn(v, k, arr) then
-      table.insert(filtered, v)
-    end
-  end
-
-  return filtered
-end
-
-local function filterReactDTS(value)
-  return string.match(value.filename, 'react/index.d.ts') == nil
-end
-
-local function on_list(options)
-  local items = options.items
-  if #items > 1 then
-    items = filter(items, filterReactDTS)
-  end
-
-  vim.fn.setqflist({}, ' ', { title = options.title, items = items, context = options.context })
-  vim.api.nvim_command('cfirst') -- or maybe you want 'copen' instead of 'cfirst'
-end
-
 local on_attach = function(_, bufnr)
   vim.api.nvim_set_keymap('n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', 'gd', function() vim.lsp.buf.definition{on_list=on_list} end, { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', 'gr', '<Cmd>lua require("telescope.builtin").lsp_references()<CR>',
     { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', '<C-e>', '<cmd>lua vim.diagnostic.open_float()<cr>', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-  vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+  vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', { noremap = true, silent = true })
 end
 
 vim.api.nvim_exec([[
@@ -99,11 +89,39 @@ require("mason-lspconfig").setup({
     'solargraph',
     'sorbet',
     'rubocop',
-    'eslint'
+    'eslint',
+    'yamlls'
   },
   handlers = {
     function(server)
-      lspconfig[server].setup({})
+      if server == "yamlls" then
+        lspconfig[server].setup {
+          settings = {
+            yaml = {
+              schemas = {
+                ['https://json.schemastore.org/kustomization'] = { 'kustomization.yaml', 'deploy.yaml', 'base/*.yaml',
+                  'overlays/*.yaml' },
+              },
+            },
+          }
+        }
+      elseif server == "tsserver" then
+        lspconfig[server].setup {
+          handlers = {
+            ['textDocument/definition'] = function(err, result, method, ...)
+              if vim.tbl_islist(result) and #result > 1 then
+                local filtered_result = filter(result, filterReactDTS)
+                return vim.lsp.handlers['textDocument/definition'](err, filtered_result, method, ...)
+              end
+
+              vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
+            end
+
+          }
+        }
+      else
+        lspconfig[server].setup({})
+      end
     end,
   }
 })
