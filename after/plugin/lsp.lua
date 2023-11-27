@@ -26,10 +26,39 @@ cmp.setup({
   }),
 })
 
+local function filter(arr, fn)
+  if type(arr) ~= "table" then
+    return arr
+  end
+
+  local filtered = {}
+  for k, v in pairs(arr) do
+    if fn(v, k, arr) then
+      table.insert(filtered, v)
+    end
+  end
+
+  return filtered
+end
+
+local function filterReactDTS(value)
+  return string.match(value.filename, 'react/index.d.ts') == nil
+end
+
+local function on_list(options)
+  local items = options.items
+  if #items > 1 then
+    items = filter(items, filterReactDTS)
+  end
+
+  vim.fn.setqflist({}, ' ', { title = options.title, items = items, context = options.context })
+  vim.api.nvim_command('cfirst') -- or maybe you want 'copen' instead of 'cfirst'
+end
+
 local on_attach = function(_, bufnr)
   vim.api.nvim_set_keymap('n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('n', 'gd', function() vim.lsp.buf.definition{on_list=on_list} end, { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', 'gr', '<Cmd>lua require("telescope.builtin").lsp_references()<CR>',
     { noremap = true, silent = true })
