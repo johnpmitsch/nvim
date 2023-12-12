@@ -83,11 +83,11 @@ require("mason-lspconfig").setup({
     'jsonls',
     'lua_ls',
     'pyre',
-    'solang',
     'svelte',
     'tsserver',
     'solargraph',
     'sorbet',
+    'solang',
     'rubocop',
     'eslint',
     'yamlls'
@@ -150,7 +150,12 @@ local lSsources = {
       "md",
       "txt",
     },
-  })
+  }),
+  null_ls.builtins.formatting.gofmt.with({
+    filetypes = {
+      "go",
+    },
+  }),
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
