@@ -99,6 +99,11 @@ _G.packer_plugins = {
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/copilot.lua",
     url = "https://github.com/zbirenbaum/copilot.lua"
   },
+  ["eyeliner.nvim"] = {
+    loaded = true,
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/eyeliner.nvim",
+    url = "https://github.com/jinh0/eyeliner.nvim"
+  },
   ["flash.nvim"] = {
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/flash.nvim",
@@ -113,6 +118,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/gv.vim",
     url = "https://github.com/junegunn/gv.vim"
+  },
+  ["hardtime.nvim"] = {
+    loaded = true,
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/hardtime.nvim",
+    url = "https://github.com/m4xshen/hardtime.nvim"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -161,8 +171,11 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
   ["oil.nvim"] = {
-    loaded = true,
-    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/start/oil.nvim",
+    keys = { { "-", ":lua require('oil').open()<CR>" } },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/johnmitsch/.local/share/nvim/site/pack/packer/opt/oil.nvim",
     url = "https://github.com/stevearc/oil.nvim"
   },
   ["packer.nvim"] = {
@@ -218,6 +231,11 @@ time([[Defining packer_plugins]], false)
 time([[Config for registers.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14registers\frequire\0", "config", "registers.nvim")
 time([[Config for registers.nvim]], false)
+-- Keymap lazy-loads
+time([[Defining lazy-load keymaps]], true)
+vim.cmd [[-noremap <silent> :lua require('oil').open()<CR> <cmd>lua require("packer.load")({'oil.nvim'}, { keys = ":lua require('oil').open()<lt>CR>", prefix = "" }, _G.packer_plugins)<cr>]]
+time([[Defining lazy-load keymaps]], false)
+
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

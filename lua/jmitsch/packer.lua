@@ -56,4 +56,11 @@ return require('packer').startup(function(use)
     requires = 'nvim-lua/plenary.nvim'
   }
   use "numToStr/FTerm.nvim"
+  use {
+    'jinh0/eyeliner.nvim',
+  }
+  --use {
+  --  "m4xshen/hardtime.nvim",
+  --  requires = { "MunifTanjim/nui.nvim" }, { "nvim-lua/plenary.nvim" }
+  --}
 end)
