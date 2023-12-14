@@ -1,5 +1,5 @@
 require("jmitsch.remap")
-require("jmitsch.packer")
+require("jmitsch.lazy")
 require("jmitsch.set")
 require("jmitsch.auto")
 
