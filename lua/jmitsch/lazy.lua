@@ -23,7 +23,6 @@ local plugins = {
   -- Telescope
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.1',
     requires = {
       'nvim-lua/plenary.nvim',
       "keyvchan/telescope-find-pickers.nvim"

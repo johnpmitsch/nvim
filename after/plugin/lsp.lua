@@ -74,8 +74,10 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 )
 
 require("mason").setup()
+require 'lspconfig'.biome.setup {}
 require("mason-lspconfig").setup({
   ensure_installed = {
+    'biome',
     'clangd',
     'cssls',
     'gopls',
@@ -164,19 +166,36 @@ null_ls.setup({
   sources = lSsources,
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
+      local filetype = vim.bo[bufnr].filetype
+      local enable_formatting = false
+
+      -- Check for JavaScript/TypeScript projects
+      if filetype == "javascript" or filetype == "typescript" or
+          filetype == "javascriptreact" or filetype == "typescriptreact" then
+        if vim.fn.filereadable(".prettierrc") == 1 or
+            vim.fn.filereadable(".prettierrc.json") == 1 then
+          enable_formatting = true
+        end
+      else
+        -- Enable formatting for all other filetypes
+        enable_formatting = true
+      end
+
       vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = augroup,
-        buffer = bufnr,
-        callback = function()
-          vim.lsp.buf.format({
-            bufnr = bufnr,
-            filter = function(cl)
-              return cl.name == "null-ls"
-            end,
-          })
-        end,
-      })
+      if enable_formatting then
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          group = augroup,
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.format({
+              bufnr = bufnr,
+              filter = function(cl)
+                return cl.name == "null-ls"
+              end,
+            })
+          end,
+        })
+      end
     end
   end,
 })
