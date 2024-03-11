@@ -36,7 +36,7 @@ cmp.setup({
     { name = 'buffer' },
   }),
   mapping = cmp.mapping.preset.insert({
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
     ['<C-j>'] = cmp.mapping.select_next_item(select_opts),
     ['<C-k>'] = cmp.mapping.select_prev_item(select_opts),
     ['<C-n>'] = cmp.mapping.scroll_docs(-4),
@@ -74,10 +74,8 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 )
 
 require("mason").setup()
-require 'lspconfig'.biome.setup {}
 require("mason-lspconfig").setup({
   ensure_installed = {
-    'biome',
     'clangd',
     'cssls',
     'gopls',
@@ -92,7 +90,8 @@ require("mason-lspconfig").setup({
     'solang',
     'rubocop',
     'eslint',
-    'yamlls'
+    'yamlls',
+    'rust_analyzer',
   },
   handlers = {
     function(server)
@@ -119,6 +118,15 @@ require("mason-lspconfig").setup({
               vim.lsp.handlers['textDocument/definition'](err, result, method, ...)
             end
 
+          }
+        }
+      elseif server == "rust_analyzer" then
+        lspconfig[server].setup {
+          check = {
+            command = "clippy",
+          },
+          diagnostics = {
+            enable = true,
           }
         }
       else
@@ -158,6 +166,11 @@ local lSsources = {
       "go",
     },
   }),
+  null_ls.builtins.formatting.rustfmt.with({
+    filetypes = {
+      "rust",
+    },
+  }),
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -166,36 +179,19 @@ null_ls.setup({
   sources = lSsources,
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
-      local filetype = vim.bo[bufnr].filetype
-      local enable_formatting = false
-
-      -- Check for JavaScript/TypeScript projects
-      if filetype == "javascript" or filetype == "typescript" or
-          filetype == "javascriptreact" or filetype == "typescriptreact" then
-        if vim.fn.filereadable(".prettierrc") == 1 or
-            vim.fn.filereadable(".prettierrc.json") == 1 then
-          enable_formatting = true
-        end
-      else
-        -- Enable formatting for all other filetypes
-        enable_formatting = true
-      end
-
       vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-      if enable_formatting then
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          group = augroup,
-          buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format({
-              bufnr = bufnr,
-              filter = function(cl)
-                return cl.name == "null-ls"
-              end,
-            })
-          end,
-        })
-      end
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({
+            bufnr = bufnr,
+            filter = function(cl)
+              return cl.name == "null-ls"
+            end,
+          })
+        end,
+      })
     end
   end,
 })
