@@ -154,7 +154,6 @@ local lSsources = {
       "css",
       "scss",
       "html",
-      "yaml",
       "markdown",
       "graphql",
       "md",
@@ -166,18 +165,18 @@ local lSsources = {
       "go",
     },
   }),
-  null_ls.builtins.formatting.rustfmt.with({
-    filetypes = {
-      "rust",
-    },
-  }),
+  null_ls.builtins.formatting.rustfmt,
 }
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local augroup = vim.api.nvim_create_augroup("LspFormattingJM", {})
 
 null_ls.setup({
   sources = lSsources,
   on_attach = function(client, bufnr)
+    if vim.api.nvim_buf_get_option(bufnr, 'filetype') == 'yaml' then
+      return -- Skip setting up formatting for YAML files
+    end
+
     if client.supports_method("textDocument/formatting") then
       vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
       vim.api.nvim_create_autocmd("BufWritePre", {
@@ -185,10 +184,7 @@ null_ls.setup({
         buffer = bufnr,
         callback = function()
           vim.lsp.buf.format({
-            bufnr = bufnr,
-            filter = function(cl)
-              return cl.name == "null-ls"
-            end,
+            bufnr = bufnr
           })
         end,
       })
