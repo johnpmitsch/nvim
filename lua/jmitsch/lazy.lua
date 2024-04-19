@@ -34,9 +34,7 @@ local plugins = {
 
   -- Other plugins
   'mbbill/undotree',
-  "junegunn/gv.vim",
   "tpope/vim-rhubarb",
-  "zbirenbaum/copilot.lua",
   "folke/tokyonight.nvim",
   'folke/flash.nvim',
 
