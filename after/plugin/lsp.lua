@@ -35,6 +35,7 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'buffer' },
   }),
+  preselect = cmp.PreselectMode.None,
   mapping = cmp.mapping.preset.insert({
     ['<Tab>'] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
     ['<C-j>'] = cmp.mapping.select_next_item(select_opts),
@@ -124,6 +125,9 @@ require("mason-lspconfig").setup({
         lspconfig[server].setup {
           check = {
             command = "clippy",
+          },
+          extraArgs = {
+            "--all-targets"
           },
           diagnostics = {
             enable = true,

@@ -24,7 +24,7 @@ require("tokyonight").setup({
 
   on_colors = function(colors)
     colors.border = "#d1d2de"
-    colors.magenta2 = "#33011f"
+    colors.magenta2 = "#850413"
   end,
 })
 
