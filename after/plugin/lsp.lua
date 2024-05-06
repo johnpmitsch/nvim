@@ -122,17 +122,18 @@ require("mason-lspconfig").setup({
           }
         }
       elseif server == "rust_analyzer" then
-        lspconfig[server].setup {
-          check = {
-            command = "clippy",
-          },
-          extraArgs = {
-            "--all-targets"
-          },
-          diagnostics = {
-            enable = true,
-          }
-        }
+        -- do nothing so it uses rustaceanvim
+        --lspconfig[server].setup {
+        --  check = {
+        --    command = "clippy",
+        --  },
+        --  extraArgs = {
+        --    "--all-targets"
+        --  },
+        --  diagnostics = {
+        --    enable = true,
+        --  }
+        --}
       else
         lspconfig[server].setup({})
       end
@@ -173,6 +174,29 @@ local lSsources = {
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormattingJM", {})
+
+vim.g.rustaceanvim = function()
+  return {
+    server = {
+      on_attach = function()
+        vim.keymap.set("n", "K", function() vim.cmd.RustLsp { "hover", "actions" } end, { noremap = true, silent = true })
+        vim.keymap.set("n", "<leader>rr", function() vim.cmd.RustLsp('runnables') end, { noremap = true, silent = true })
+        vim.keymap.set("n", "<leader>ca", function() vim.cmd.RustLsp('codeAction') end, { noremap = true, silent = true })
+
+        vim.api.nvim_set_keymap('n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', 'gr', '<Cmd>lua require("telescope.builtin").lsp_references()<CR>',
+          { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<C-e>', '<cmd>lua vim.diagnostic.open_float()<cr>',
+          { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', { noremap = true, silent = true })
+      end
+    }
+  }
+end
 
 null_ls.setup({
   sources = lSsources,
