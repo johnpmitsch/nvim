@@ -2,6 +2,7 @@ local cmp = require('cmp')
 local luasnip = require('luasnip')
 local lspconfig = require('lspconfig')
 local null_ls = require("null-ls")
+local lsp_status = require('lsp-status')
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 local function filter(arr, fn)
@@ -46,7 +47,7 @@ cmp.setup({
   }),
 })
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   vim.api.nvim_set_keymap('n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
   vim.api.nvim_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
@@ -66,7 +67,6 @@ vim.api.nvim_exec([[
 local lsp_defaults = {
   on_attach = on_attach,
 }
-
 
 lspconfig.util.default_config = vim.tbl_deep_extend(
   'force',

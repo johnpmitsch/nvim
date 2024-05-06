@@ -3,6 +3,9 @@
 -- MIT license, see LICENSE for more details.
 
 -- stylua: ignore
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+
 local colors = {
   blue     = '#62C6F2',
   cyan     = '#79dac8',
@@ -38,7 +41,7 @@ local save_status = function()
   return is_modified and "🔴" or "🟢"
 end
 
-local lsp_status = function()
+local lsp_name = function()
   local clients = vim.lsp.buf_get_clients(0)
   if next(clients) == nil then return 'No LSP' end
   local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
@@ -58,6 +61,11 @@ local lsp_status = function()
   end
 end
 
+local lsp_status = function()
+  --if vim.lsp.buf_get_clients() < 1 then return "" end
+  return lsp_status.status()
+end
+
 require('lualine').setup {
   options = {
     theme = bubbles_theme,
@@ -73,9 +81,9 @@ require('lualine').setup {
       path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
     },
       'branch' },
-    lualine_c = { 'fileformat' },
+    lualine_c = {},
     lualine_x = { 'diff' },
-    lualine_y = { 'filetype', lsp_status, 'progress', },
+    lualine_y = { 'filetype', lsp_name, 'progress', },
     lualine_z = {
       { 'location', left_padding = 2 },
     },
@@ -84,7 +92,7 @@ require('lualine').setup {
     lualine_a = {},
     lualine_b = { save_status, {
       'filename',
-      path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
+      path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
     } },
     lualine_c = {},
     lualine_x = {},

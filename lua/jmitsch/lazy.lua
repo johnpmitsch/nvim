@@ -80,8 +80,15 @@ local plugins = {
     requires = 'nvim-lua/plenary.nvim'
   },
 
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
+    lazy = false,
+  },
+
   "numToStr/FTerm.nvim",
   'jinh0/eyeliner.nvim',
+  'nvim-lua/lsp-status.nvim',
 
   -- Uncomment if needed
   -- {
