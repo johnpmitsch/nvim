@@ -121,6 +121,40 @@ require("mason-lspconfig").setup({
 
           }
         }
+      elseif server == "solargraph" then
+        local home = os.getenv("HOME")
+        local ruby_path = ""
+
+        -- For RVM
+        if vim.fn.isdirectory(home .. "/.rbenv/bin") == 1 then
+          ruby_path = home .. "/.rbenv/bin/:"
+          -- For rbenv
+        elseif vim.fn.isdirectory(home .. "/.rbenv/shims") == 1 then
+          ruby_path = home .. "/.rbenv/shims/"
+        end
+
+        -- Add Ruby path to Neovim's PATH
+        vim.env.PATH = ruby_path .. vim.env.PATH
+
+        -- Set up Solargraph with the correct Ruby
+        lspconfig[server].setup {
+          cmd = { ruby_path .. "solargraph", "stdio" },
+          settings = {
+            solargraph = {
+              diagnostics = true,
+              completion = true,
+              hover = true,
+              formatting = true,
+              useBundler = true, -- Use this if you're using Bundler
+              autoformat = true,
+              symbols = true,
+              definitions = true,
+              references = true,
+              rename = true
+            }
+          },
+          on_attach = on_attach -- Make sure to use your custom on_attach function
+        }
       elseif server == "rust_analyzer" then
         -- do nothing so it uses rustaceanvim
         --lspconfig[server].setup {
@@ -171,6 +205,11 @@ local lSsources = {
     },
   }),
   null_ls.builtins.formatting.rustfmt,
+  null_ls.builtins.diagnostics.rubocop.with({
+    command = "rubocop",
+    args = { "--format", "json", "--force-exclusion", "--stdin", "$FILENAME" },
+    diagnostics_format = "#{m} [#{c}]"
+  }),
 }
 
 local augroup = vim.api.nvim_create_augroup("LspFormattingJM", {})
@@ -198,6 +237,8 @@ vim.g.rustaceanvim = function()
   }
 end
 
+vim.lsp.set_log_level("debug")
+
 null_ls.setup({
   sources = lSsources,
   on_attach = function(client, bufnr)
@@ -219,3 +260,10 @@ null_ls.setup({
     end
   end,
 })
+
+--require("mason-nvim-dap").setup({
+--  ensure_installed = {
+--    "codelldb",
+--    "cpptools"
+--  }
+--})

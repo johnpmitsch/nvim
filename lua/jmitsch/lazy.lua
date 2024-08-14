@@ -90,6 +90,10 @@ local plugins = {
   'jinh0/eyeliner.nvim',
   'nvim-lua/lsp-status.nvim',
 
+  -- debugging
+  "mfussenegger/nvim-dap",
+  "jay-babu/mason-nvim-dap.nvim",
+
   -- Uncomment if needed
   -- {
   --   "m4xshen/hardtime.nvim",
