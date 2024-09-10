@@ -4,7 +4,7 @@ flash.setup({
   modes = {
     char = {
       enabled = false,
-    }
+    },
   }
 })
 
@@ -33,6 +33,7 @@ local lineJump = function()
 end
 
 local treesitter = function()
+  print("HERE")
   flash.treesitter()
 end
 

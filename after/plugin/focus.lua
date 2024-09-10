@@ -37,4 +37,4 @@ vim.api.nvim_set_keymap('n', '<Space>wr', ':FocusSplitLeft<CR>', { silent = true
 vim.api.nvim_set_keymap('n', '<Space>wd', ':FocusSplitDown<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<Space>wu', ':FocusSplitUp<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<Space>wl', ':FocusSplitRight<CR>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<Space>wm', ':FocusMaxOrEqual<CR>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<C-m>', ':FocusMaxOrEqual<CR>', { silent = true, noremap = true })

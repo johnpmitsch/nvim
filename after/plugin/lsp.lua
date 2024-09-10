@@ -74,7 +74,9 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
   lsp_defaults
 )
 
-require("mason").setup()
+require("mason").setup({
+   PATH = "prepend",
+})
 require("mason-lspconfig").setup({
   ensure_installed = {
     'clangd',
@@ -85,9 +87,7 @@ require("mason-lspconfig").setup({
     'lua_ls',
     'pyre',
     'svelte',
-    'tsserver',
     'solargraph',
-    'sorbet',
     'solang',
     'rubocop',
     'eslint',
@@ -127,18 +127,19 @@ require("mason-lspconfig").setup({
 
         -- For RVM
         if vim.fn.isdirectory(home .. "/.rbenv/bin") == 1 then
-          ruby_path = home .. "/.rbenv/bin/:"
+          ruby_path = home .. "/.rbenv/bin"
           -- For rbenv
         elseif vim.fn.isdirectory(home .. "/.rbenv/shims") == 1 then
-          ruby_path = home .. "/.rbenv/shims/"
+          ruby_path = home .. "/.rbenv/shims"
         end
 
         -- Add Ruby path to Neovim's PATH
-        vim.env.PATH = ruby_path .. vim.env.PATH
+        -- didn't need this
+        --vim.env.PATH = ruby_path .. vim.env.PATH
 
         -- Set up Solargraph with the correct Ruby
         lspconfig[server].setup {
-          cmd = { ruby_path .. "solargraph", "stdio" },
+          cmd = { ruby_path .. "/solargraph", "stdio" },
           settings = {
             solargraph = {
               diagnostics = true,
@@ -156,7 +157,7 @@ require("mason-lspconfig").setup({
           on_attach = on_attach -- Make sure to use your custom on_attach function
         }
       elseif server == "rust_analyzer" then
-        -- do nothing so it uses rustaceanvim
+       -- do nothing so it uses rustaceanvim
         --lspconfig[server].setup {
         --  check = {
         --    command = "clippy",
@@ -237,7 +238,7 @@ vim.g.rustaceanvim = function()
   }
 end
 
-vim.lsp.set_log_level("debug")
+--vim.lsp.set_log_level("debug")
 
 null_ls.setup({
   sources = lSsources,

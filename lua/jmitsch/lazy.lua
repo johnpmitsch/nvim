@@ -87,7 +87,6 @@ local plugins = {
   },
 
   "numToStr/FTerm.nvim",
-  'jinh0/eyeliner.nvim',
   'nvim-lua/lsp-status.nvim',
 
   -- debugging
