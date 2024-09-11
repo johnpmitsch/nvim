@@ -148,9 +148,9 @@ require("mason-lspconfig").setup({
               diagnostics = true,
               completion = true,
               hover = true,
-              formatting = true,
-              useBundler = true, -- Use this if you're using Bundler
-              autoformat = true,
+              formatting = false,
+              useBundler = true,
+              autoformat = false,
               symbols = true,
               definitions = true,
               references = true,
@@ -242,6 +242,9 @@ vim.g.rustaceanvim = function()
 end
 
 --vim.lsp.set_log_level("debug")
+
+-- I don't know why I need this specifically for ruby auto-formatting but it works
+vim.cmd [[autocmd BufWritePre *.rb lua vim.lsp.buf.format()]]
 
 null_ls.setup({
   sources = lSsources,
