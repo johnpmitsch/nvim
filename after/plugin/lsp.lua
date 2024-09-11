@@ -75,7 +75,7 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 )
 
 require("mason").setup({
-   PATH = "prepend",
+  PATH = "prepend",
 })
 require("mason-lspconfig").setup({
   ensure_installed = {
@@ -140,6 +140,9 @@ require("mason-lspconfig").setup({
         -- Set up Solargraph with the correct Ruby
         lspconfig[server].setup {
           cmd = { ruby_path .. "/solargraph", "stdio" },
+          root_dir = function(fname)
+            return require("lspconfig").util.root_pattern("Gemfile", ".git")(fname) or vim.fn.getcwd()
+          end,
           settings = {
             solargraph = {
               diagnostics = true,
@@ -157,7 +160,7 @@ require("mason-lspconfig").setup({
           on_attach = on_attach -- Make sure to use your custom on_attach function
         }
       elseif server == "rust_analyzer" then
-       -- do nothing so it uses rustaceanvim
+        -- do nothing so it uses rustaceanvim
         --lspconfig[server].setup {
         --  check = {
         --    command = "clippy",
