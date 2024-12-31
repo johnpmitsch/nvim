@@ -126,6 +126,15 @@ local servers = {
 	gopls = {},
 	pyright = {},
 	ruby_lsp = {},
+	helm_ls = {
+		settings = {
+			["helm-ls"] = {
+				yamlls = {
+					path = "yaml-language-server",
+				},
+			},
+		},
+	},
 	--rust_analyzer = {},
 	-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 	--
@@ -156,20 +165,21 @@ local servers = {
 	--    }
 	--  }
 	--},
-	yamlls = {
-		settings = {
-			yaml = {
-				schemas = {
-					["https://json.schemastore.org/kustomization"] = {
-						"kustomization.yaml",
-						"deploy.yaml",
-						"base/*.yaml",
-						"overlays/*.yaml",
-					},
-				},
-			},
-		},
-	},
+	--yamlls = {
+	--	settings = {
+	--		yaml = {
+	--			filetypes_exclude = { "helm" },
+	--			schemas = {
+	--				["https://json.schemastore.org/kustomization"] = {
+	--					"kustomization.yaml",
+	--					"deploy.yaml",
+	--					"base/*.yaml",
+	--					"overlays/*.yaml",
+	--				},
+	--			},
+	--		},
+	--	},
+	--},
 	lua_ls = {
 		-- cmd = {...},
 		-- filetypes = { ...},
