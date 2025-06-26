@@ -143,6 +143,10 @@ local plugins = {
 	},
 
 	{ "towolf/vim-helm", ft = "helm" },
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = { "kevinhwang91/promise-async" }
+	},
 
 	-- Uncomment if needed
 	-- {
