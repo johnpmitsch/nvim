@@ -243,7 +243,13 @@ require("mason").setup()
 -- You can add other tools here that you want Mason to install
 -- for you, so that they are available from within Neovim.
 --
+-- Also exclude rust_analyzer from ensure_installed if it's there
 local ensure_installed = vim.tbl_keys(servers or {})
+-- Remove rust_analyzer if it exists in the list
+ensure_installed = vim.tbl_filter(function(server)
+	return server ~= "rust_analyzer"
+end, ensure_installed)
+
 vim.list_extend(ensure_installed, {
 	"stylua", -- Used to format Lua code
 })
@@ -253,6 +259,11 @@ require("mason-lspconfig").setup({
 	handlers = {
 		function(server_name)
 			local server = servers[server_name] or {}
+
+			-- let rustaceanvim handle rust
+			if server_name == "rust_analyzer" then
+				return
+			end
 			-- This handles overriding only values explicitly passed
 			-- by the server configuration above. Useful when disabling
 			-- certain features of an LSP (for example, turning off formatting for ts_ls)
@@ -343,16 +354,22 @@ vim.g.rustaceanvim = function()
 	return {
 		server = {
 			on_attach = function()
+				-- Use RustLsp hover with actions (this is the correct way for Rust)
 				vim.keymap.set("n", "K", function()
 					vim.cmd.RustLsp({ "hover", "actions" })
 				end, { noremap = true, silent = true })
+
+				-- Rust-specific runnables
 				vim.keymap.set("n", "<leader>rr", function()
 					vim.cmd.RustLsp("runnables")
 				end, { noremap = true, silent = true })
+
+				-- Use RustLsp code actions (better than generic LSP for Rust)
 				vim.keymap.set("n", "<leader>ca", function()
 					vim.cmd.RustLsp("codeAction")
 				end, { noremap = true, silent = true })
 
+				-- Standard LSP mappings
 				vim.api.nvim_set_keymap(
 					"n",
 					"<leader>rn",
@@ -377,7 +394,7 @@ vim.g.rustaceanvim = function()
 					'<Cmd>lua require("telescope.builtin").lsp_references()<CR>',
 					{ noremap = true, silent = true }
 				)
-				vim.api.nvim_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+				-- Diagnostic navigation
 				vim.api.nvim_set_keymap(
 					"n",
 					"<C-e>",

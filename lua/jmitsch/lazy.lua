@@ -37,14 +37,6 @@ local plugins = {
 	"folke/tokyonight.nvim",
 	"folke/flash.nvim",
 
-	-- Registers
-	{
-		"tversteeg/registers.nvim",
-		config = function()
-			require("registers").setup()
-		end,
-	},
-
 	-- Lualine
 	{
 		"nvim-lualine/lualine.nvim",
@@ -157,6 +149,8 @@ local plugins = {
 	--   "m4xshen/hardtime.nvim",
 	--   requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" }
 	-- }
+	-- { 'vuciv/golf' },
+	-- { "vuciv/golf" },
 }
 
 require("lazy").setup(plugins)
