@@ -154,6 +154,12 @@ local plugins = {
 		---@type ibl.config
 		opts = {},
 	},
+	{
+		"nvim-telescope/telescope-project.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+		},
+	},
 
 	-- Uncomment if needed
 	-- {

@@ -1,9 +1,11 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
-
 local builtin = require("telescope.builtin")
+local project_actions = require("telescope._extensions.project.actions")
 
 telescope.load_extension("find_pickers")
+telescope.load_extension("project")
+
 telescope.setup({
 	pickers = {
 		find_files = {
@@ -26,6 +28,26 @@ telescope.setup({
 			},
 		},
 	},
+	extensions = {
+		project = {
+			base_dirs = {
+				{ "~/qn/", max_depth = 1 },
+			},
+			hidden_files = false,
+			theme = "dropdown",
+			order_by = "asc",
+			search_by = "title",
+			sync_with_nvim_tree = true,
+			on_project_selected = function(prompt_bufnr)
+				local project_path = require("telescope.actions.state").get_selected_entry(prompt_bufnr).value
+				require("telescope.actions").close(prompt_bufnr)
+				require("telescope._extensions.project.utils").change_project_dir(project_path, "lcd")
+				vim.schedule(function()
+					require("telescope.builtin").oldfiles({ cwd_only = true })
+				end)
+			end,
+		},
+	},
 })
 
 vim.keymap.set("n", "<C-p>", builtin.find_files, {})
@@ -41,4 +63,5 @@ vim.keymap.set("n", "<leader>ps", function()
 end)
 vim.keymap.set("n", "<leader>pb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>r", builtin.registers, {})
+vim.keymap.set("n", "<leader>pp", ":lua require'telescope'.extensions.project.project{}<CR>", {})
 -- vim.keymap.set('n', '<leader>ph', builtin.help_tags, {})
