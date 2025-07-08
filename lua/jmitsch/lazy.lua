@@ -145,7 +145,14 @@ local plugins = {
 	{ "towolf/vim-helm", ft = "helm" },
 	{
 		"kevinhwang91/nvim-ufo",
-		dependencies = { "kevinhwang91/promise-async" }
+		dependencies = { "kevinhwang91/promise-async" },
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		---@module "ibl"
+		---@type ibl.config
+		opts = {},
 	},
 
 	-- Uncomment if needed
