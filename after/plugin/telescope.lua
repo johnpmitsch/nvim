@@ -3,9 +3,6 @@ local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local project_actions = require("telescope._extensions.project.actions")
 
-telescope.load_extension("find_pickers")
-telescope.load_extension("project")
-
 telescope.setup({
 	pickers = {
 		find_files = {
@@ -49,6 +46,9 @@ telescope.setup({
 		},
 	},
 })
+
+telescope.load_extension("find_pickers")
+telescope.load_extension("project")
 
 vim.keymap.set("n", "<C-p>", builtin.find_files, {})
 vim.keymap.set("n", "<C-f>", builtin.live_grep, {})
