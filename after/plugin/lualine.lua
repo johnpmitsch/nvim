@@ -40,7 +40,7 @@ require("lualine").setup({
 		theme = bubbles_theme,
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
-		globalstatus = true, -- Single statusline for all windows
+		globalstatus = false, -- Single statusline for all windows
 	},
 	sections = {
 		lualine_a = {
@@ -68,11 +68,17 @@ require("lualine").setup({
 					end
 					return str
 				end,
+				cond = function()
+					return vim.fn.winwidth(0) > 100 -- Hide if window < 80 cols
+				end,
 			},
 		},
 		lualine_c = {},
 		lualine_x = {
 			"diff",
+			cond = function()
+				return vim.fn.winwidth(0) > 80 -- Hide if window < 100 cols
+			end,
 		},
 		lualine_y = {
 			{
@@ -112,6 +118,9 @@ require("lualine").setup({
 					local clients = vim.lsp.get_active_clients and vim.lsp.get_active_clients({ bufnr = 0 })
 						or vim.lsp.buf_get_clients(0)
 					return { fg = next(clients) and colors.green or colors.red }
+				end,
+				cond = function()
+					return vim.fn.winwidth(0) > 100 -- Hide if window < 100 cols
 				end,
 			},
 			"progress",
