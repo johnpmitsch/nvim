@@ -160,6 +160,9 @@ local plugins = {
 			"nvim-telescope/telescope.nvim",
 		},
 	},
+	{
+		dir = "~/misc/buf-jump.nvim",
+	},
 
 	-- Uncomment if needed
 	-- {
