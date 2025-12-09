@@ -102,18 +102,20 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 -- Add ufo folding capabilities
 capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true
+	dynamicRegistration = false,
+	lineFoldingOnly = true,
 }
 
 -- Load modular LSP configurations
 local servers = require("jmitsch.lsp.servers")
 local ruby = require("jmitsch.lsp.ruby")
 local rust = require("jmitsch.lsp.rust")
-local typescript = require("jmitsch.lsp.typescript")
+local eslint = require("jmitsch.lsp.eslint")
 
 -- Merge Ruby server config
 servers = vim.tbl_deep_extend("force", servers, ruby.server_config)
+-- Merge ESLint server config
+servers = vim.tbl_deep_extend("force", servers, eslint.server_config)
 
 -- Ensure the servers and tools above are installed
 --  To check the current status of installed tools and/or manually install
@@ -128,13 +130,15 @@ require("mason").setup()
 --
 -- Also exclude rust_analyzer from ensure_installed if it's there
 local ensure_installed = vim.tbl_keys(servers or {})
--- Remove rust_analyzer if it exists in the list
+-- Remove servers handled by specialized plugins
 ensure_installed = vim.tbl_filter(function(server)
 	return server ~= "rust_analyzer"
 end, ensure_installed)
 
 vim.list_extend(ensure_installed, {
 	"stylua", -- Used to format Lua code
+	"prettierd", -- Prettier daemon for fast formatting
+	"prettier", -- Prettier fallback
 })
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -147,6 +151,7 @@ require("mason-lspconfig").setup({
 			if server_name == "rust_analyzer" then
 				return
 			end
+
 			-- This handles overriding only values explicitly passed
 			-- by the server configuration above. Useful when disabling
 			-- certain features of an LSP (for example, turning off formatting for ts_ls)
@@ -198,7 +203,6 @@ cmp.setup({
 	}),
 })
 
-
 vim.api.nvim_exec(
 	[[
   command! NoAutoFormat lua vim.lsp.buf_set_option('format_on_save', false)
@@ -208,5 +212,5 @@ vim.api.nvim_exec(
 
 -- Setup language-specific configurations
 rust.setup()
-typescript.setup()
 ruby.setup()
+eslint.setup()

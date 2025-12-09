@@ -75,10 +75,12 @@ require("lualine").setup({
 		},
 		lualine_c = {},
 		lualine_x = {
-			"diff",
-			cond = function()
-				return vim.fn.winwidth(0) > 80 -- Hide if window < 100 cols
-			end,
+			{
+				"diff",
+				cond = function()
+					return vim.fn.winwidth(0) > 80 -- Hide if window < 100 cols
+				end,
+			},
 		},
 		lualine_y = {
 			{
