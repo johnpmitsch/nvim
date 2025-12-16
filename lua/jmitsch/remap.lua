@@ -44,6 +44,8 @@ vim.keymap.set("n", "<leader>cp", function()
 	vim.fn.setreg("+", relative)
 end, { desc = "Copy relative filepath" })
 
+vim.keymap.set("n", "<leader>ln", ":set relativenumber!<CR>", { silent = true })
+
 local function disable_keys()
 	local keys_to_disable = { "h", "j", "k", "l" }
 	for _, key in ipairs(keys_to_disable) do

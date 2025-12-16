@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(~/.local/share/nvim/mason/bin/stylua:*)",
+      "Bash(stylua:*)",
+      "Bash(nvim:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(/Users/johnmitsch/.local/share/nvim/mason/packages/stylua/stylua:*)",
+      "Bash(cat:*)",
+      "Bash(git log:*)"
     ],
     "deny": []
   }
