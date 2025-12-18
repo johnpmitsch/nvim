@@ -48,6 +48,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- or a suggestion from your LSP for this to activate.
 		map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", { "n", "x" })
 
+		-- Shows hover information about the symbol under the cursor in a floating window
+		map("K", vim.lsp.buf.hover, "Hover Documentation")
+
 		-- WARN: This is not Goto Definition, this is Goto Declaration.
 		--  For example, in C this would take you to the header.
 		map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
@@ -109,7 +112,6 @@ capabilities.textDocument.foldingRange = {
 -- Load modular LSP configurations
 local servers = require("jmitsch.lsp.servers")
 local ruby = require("jmitsch.lsp.ruby")
-local rust = require("jmitsch.lsp.rust")
 local eslint = require("jmitsch.lsp.eslint")
 
 -- Merge Ruby server config
@@ -128,12 +130,7 @@ require("mason").setup()
 -- You can add other tools here that you want Mason to install
 -- for you, so that they are available from within Neovim.
 --
--- Also exclude rust_analyzer from ensure_installed if it's there
 local ensure_installed = vim.tbl_keys(servers or {})
--- Remove servers handled by specialized plugins
-ensure_installed = vim.tbl_filter(function(server)
-	return server ~= "rust_analyzer"
-end, ensure_installed)
 
 vim.list_extend(ensure_installed, {
 	"stylua", -- Used to format Lua code
@@ -146,11 +143,6 @@ require("mason-lspconfig").setup({
 	handlers = {
 		function(server_name)
 			local server = servers[server_name] or {}
-
-			-- let rustaceanvim handle rust
-			if server_name == "rust_analyzer" then
-				return
-			end
 
 			-- This handles overriding only values explicitly passed
 			-- by the server configuration above. Useful when disabling
@@ -211,6 +203,5 @@ vim.api.nvim_exec(
 )
 
 -- Setup language-specific configurations
-rust.setup()
 ruby.setup()
 eslint.setup()

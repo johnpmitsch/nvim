@@ -17,6 +17,27 @@ local servers = {
 		},
 	},
 	ts_ls = {},
+	rust_analyzer = {
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = {
+					command = "clippy",
+				},
+				cargo = {
+					allFeatures = true,
+				},
+				procMacro = {
+					enable = true,
+				},
+				inlayHints = {
+					enable = true,
+					chainingHints = true,
+					parameterHints = true,
+					typeHints = true,
+				},
+			},
+		},
+	},
 }
 
 return servers

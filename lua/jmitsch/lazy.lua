@@ -126,12 +126,6 @@ local plugins = {
 		"L3MON4D3/LuaSnip",
 	},
 
-	{
-		"mrcjkb/rustaceanvim",
-		version = "^4", -- Recommended
-		lazy = false,
-	},
-
 	"numToStr/FTerm.nvim",
 	"nvim-lua/lsp-status.nvim",
 
