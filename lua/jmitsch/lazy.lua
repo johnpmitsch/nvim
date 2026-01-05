@@ -153,6 +153,12 @@ local plugins = {
 	{
 		dir = "~/misc/buf-jump.nvim",
 	},
+	{
+		"ruifm/gitlinker.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
 
 	-- Uncomment if needed
 	-- {
