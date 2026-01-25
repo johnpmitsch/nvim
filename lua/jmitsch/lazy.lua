@@ -150,9 +150,9 @@ local plugins = {
 			"nvim-telescope/telescope.nvim",
 		},
 	},
-	{
-		dir = "~/misc/buf-jump.nvim",
-	},
+	--{
+	--	dir = "~/misc/buf-jump.nvim",
+	--},
 	{
 		"ruifm/gitlinker.nvim",
 		dependencies = {
@@ -160,6 +160,13 @@ local plugins = {
 		},
 	},
 
+	{
+		--dir = "/Users/jmitsch/personal/vai.nvim",
+		"johnpmitsch/vai.nvim",
+		config = function()
+			require("vai").setup()
+		end,
+	},
 	-- Uncomment if needed
 	-- {
 	--   "m4xshen/hardtime.nvim",
