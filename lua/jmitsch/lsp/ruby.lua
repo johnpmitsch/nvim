@@ -52,8 +52,8 @@ M.server_config = {
 }
 
 function M.setup()
-	-- Ruby auto-formatting
-	vim.cmd([[autocmd BufWritePre *.rb lua vim.lsp.buf.format()]])
+	-- Ruby formatting is handled by conform.nvim
+	-- No additional autocommands needed
 end
 
 return M
