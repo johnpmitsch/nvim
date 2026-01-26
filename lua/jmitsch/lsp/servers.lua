@@ -1,6 +1,6 @@
 local servers = {
 	clangd = {},
-	gopls = {},
+	--gopls = {},
 	pyright = {},
 	ruff = {
 		settings = {
